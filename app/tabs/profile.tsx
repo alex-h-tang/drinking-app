@@ -1,6 +1,10 @@
-import { Text, View } from "react-native";
+import { Text, View, Button } from "react-native";
+import { useRouter } from "expo-router";
+
 
 export default function Profile() {
+  const router = useRouter();
+
   return (
     <View
       style={{
@@ -10,6 +14,7 @@ export default function Profile() {
       }}
     >
       <Text>Profile Screen</Text>
+      <Button title="Go to Auth" onPress={() => router.push("../authScreen")} />
     </View>
   );
 }

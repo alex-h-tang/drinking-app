@@ -8,13 +8,14 @@ export default function RootLayout() {
         tabBarIcon: ({ focused, color, size }) => {
           let iconName: keyof typeof Ionicons.glyphMap;
 
-          if (route.name === "index") {
+          if (route.name === "tabs/index") {
             iconName = focused ? "home" : "home-outline";
-          } else if (route.name === "add") {
+          } else if (route.name === "tabs/add") {
             iconName = focused ? "add" : "add-outline";
-          } else if (route.name === "profile") {
+          } else if (route.name === "tabs/profile") {
             iconName = focused ? "person" : "person-outline";
-          } else {
+          }
+          else {
             iconName = "help";
           }
 
@@ -25,9 +26,11 @@ export default function RootLayout() {
         headerShown: false,
       })}
     >
-      <Tabs.Screen name="index" options={{ title: "Home" }} />
-      <Tabs.Screen name="add" options={{ title: "Add Drink" }} />
-      <Tabs.Screen name="profile" options={{ title: "Profile" }} />
+      <Tabs.Screen name="tabs/index" options={{ title: "Home" }} />
+      <Tabs.Screen name="tabs/add" options={{ title: "Add Drink" }} />
+      <Tabs.Screen name="tabs/profile" options={{ title: "Profile" }} />
+      <Tabs.Screen name="authScreen" options={{ href: null, }} />
     </Tabs>
+
   );
 }
