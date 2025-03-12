@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { Text, View, StyleSheet, SafeAreaView, TouchableOpacity } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-// import * as SQLite from 'expo-sqlite';
 
-export default function Index() {
+export default function HomeScreen() {
   interface BACLevel {
     value: number;
     label: string;

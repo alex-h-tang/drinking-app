@@ -10,11 +10,11 @@ export default function RootLayout() {
           tabBarIcon: ({ focused, color, size }) => {
             let iconName: keyof typeof Ionicons.glyphMap;
 
-            if (route.name === "tabs/index") {
+            if (route.name === "(pages)/homeScreen") {
               iconName = focused ? "home" : "home-outline";
-            } else if (route.name === "tabs/add") {
+            } else if (route.name === "(pages)/addDrinkScreen") {
               iconName = focused ? "add" : "add-outline";
-            } else if (route.name === "tabs/profile") {
+            } else if (route.name === "(pages)/profileScreen") {
               iconName = focused ? "person" : "person-outline";
             }
             else {
@@ -28,11 +28,12 @@ export default function RootLayout() {
           headerShown: false,
         })}
       >
-        <Tabs.Screen name="tabs/index" options={{ title: "Home" }} />
-        <Tabs.Screen name="tabs/add" options={{ title: "Add Drink" }} />
-        <Tabs.Screen name="tabs/profile" options={{ title: "Profile" }} />
-        <Tabs.Screen name="loginScreen" options={{ href: null, }} />
-        <Tabs.Screen name="signupScreen" options={{ href: null, }} />
+        <Tabs.Screen name="(pages)/homeScreen" options={{ title: "Home" }} />
+        <Tabs.Screen name="(pages)/addDrinkScreen" options={{ title: "Add Drink" }} />
+        <Tabs.Screen name="(pages)/profileScreen" options={{ title: "Profile" }} />
+        <Tabs.Screen name="(pages)/loginScreen" options={{ href: null, }} />
+        <Tabs.Screen name="(pages)/signupScreen" options={{ href: null, }} />
+        <Tabs.Screen name="index" options={{ href: null,}} />
       </Tabs>
     </AuthProvider>
   );

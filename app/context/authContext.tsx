@@ -2,7 +2,6 @@ import React, { createContext, useState, useEffect, ReactNode } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { signIn, signUp, logout } from '../services/authService';
 
-// Define the shape of our context data
 interface AuthContextType {
     user: any;
     signInUser: (email: string, password: string) => Promise<void>;
@@ -10,7 +9,6 @@ interface AuthContextType {
     logoutUser: () => Promise<void>;
 }
 
-// Create the context
 export const AuthContext = createContext<AuthContextType | null>(null);
 
 // AuthProvider wraps the whole app and provides authentication state

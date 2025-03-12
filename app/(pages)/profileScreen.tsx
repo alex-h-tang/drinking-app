@@ -1,9 +1,7 @@
 import { Text, View, Button } from "react-native";
 import { useRouter } from "expo-router";
-import { useState } from "react";
-import { removeToken } from "../services/authService";
 
-export default function Profile() {
+export default function ProfileScreen() {
   const router = useRouter();
 
   return (

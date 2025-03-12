@@ -1,7 +1,9 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const API_URL="http://192.168.68.120"
+
 export const signUp = async (email: string, password: string, username: string, weight: number, gender: string) => {
-    const response = await fetch(`http://localhost:4000/api/signup`, {
+    const response = await fetch(`${API_URL}:4000/api/signup`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password, username, weight, gender }),
@@ -10,7 +12,7 @@ export const signUp = async (email: string, password: string, username: string, 
 };
 
 export const signIn = async (email: string, password: string) => {
-    const response = await fetch(`http://localhost:4000/api/login`, {
+    const response = await fetch(`${process.env.API_URL}:4000/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -21,7 +23,7 @@ export const signIn = async (email: string, password: string) => {
 export const logout = async () => {
     const token = await AsyncStorage.getItem('authToken');
 
-    await fetch(`http://localhost:4000/api/logout`, {
+    await fetch(`${process.env.API_URL}:4000/api/logout`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
     });

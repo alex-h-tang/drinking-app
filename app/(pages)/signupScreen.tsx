@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { View, TextInput, Button, Text, Alert, StyleSheet, TouchableOpacity } from 'react-native';
-import { AuthContext } from './context/authContext';
+import { AuthContext } from '../context/authContext';
 import { useRouter } from 'expo-router';
 
 export default function SignupScreen() {
@@ -47,8 +47,8 @@ export default function SignupScreen() {
         <View style={styles.container}>
             <Text style={styles.title}>Sign Up</Text>
             <Text style={styles.label}>Email</Text>
-            <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={setEmail} />
-            <Text style={styles.label}>Password</Text>
+            <TextInput style={styles.input} placeholder="Email" value={email} onChangeText={setEmail}/>
+            <Text style={styles.label}>Password ({'>'}6 characters)</Text>
             <TextInput style={styles.input} placeholder="Password" secureTextEntry value={password} onChangeText={setPassword} />
             <Text style={styles.label}>Username</Text>
             <TextInput style={styles.input} placeholder="Username" value={username} onChangeText={setUsername} />

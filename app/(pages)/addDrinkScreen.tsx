@@ -1,6 +1,6 @@
 import { Text, View } from "react-native";
 
-export default function Add() {
+export default function AddDrinkScreen() {
   return (
     <View
       style={{
