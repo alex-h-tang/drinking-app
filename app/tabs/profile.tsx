@@ -1,6 +1,7 @@
 import { Text, View, Button } from "react-native";
 import { useRouter } from "expo-router";
-
+import { useState } from "react";
+import { removeToken } from "../services/authService";
 
 export default function Profile() {
   const router = useRouter();
@@ -14,7 +15,8 @@ export default function Profile() {
       }}
     >
       <Text>Profile Screen</Text>
-      <Button title="Go to Auth" onPress={() => router.push("../authScreen")} />
+      <Button title="Go to Login" onPress={() => router.push("../loginScreen")} />
+      <Button title="Go to Signup" onPress={() => router.push("../signupScreen")} />
     </View>
   );
 }

@@ -18,6 +18,18 @@ export const signIn = async (email: string, password: string) => {
     return await response.json();
 };
 
+export const logout = async () => {
+    const token = await AsyncStorage.getItem('authToken');
+
+    await fetch(`http://localhost:4000/api/logout`, {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${token}` },
+    });
+
+    await AsyncStorage.removeItem('authToken');
+    await AsyncStorage.removeItem('refreshToken');
+};
+
 // **Fetch user profile**
 export const getUserProfile = async (token: string) => {
     const response = await fetch(`http://localhost:4000/api/profile`, {

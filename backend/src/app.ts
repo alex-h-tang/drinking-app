@@ -1,7 +1,7 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import { supabase } from './config/supabaseClient'
+import { supabase, supabaseAdmin } from './config/supabaseClient'
 
 dotenv.config();
 
@@ -38,30 +38,41 @@ app.post('/api/signup', async (req: Request, res: Response) => {
   try {
     const { email, password, username, weight, gender } = req.body;
 
+    console.log("Signup request received:", { email, username, weight, gender });
+
     // Create user in Supabase Auth
     const { data, error } = await supabase.auth.signUp({ email, password });
 
     if (error) {
+      console.error("Supabase Auth Error:", error);
       throw new Error(error.message);
     }
 
+    console.log("User created in Auth:", data);
+
     // Insert profile into the profiles table
-    const { error: profileError } = await supabase.from('profiles').insert([
-      { id: data.user?.id, username, weight, gender },
+    // const { error: profileError } = await supabase.from('profiles').insert([
+    //   { id: data.user?.id, username, weight, gender },
+    // ]);
+
+    const { error: profileError } = await supabaseAdmin.from('profiles').insert([
+      { id: data.user?.id, username, weight, gender }
     ]);
 
     if (profileError) {
+      console.error("Profile Insert Error:", profileError);
       throw new Error(profileError.message);
     }
 
     res.status(201).json({ message: 'User created successfully', user: data.user });
-  } catch (err) {
+  } catch (err: any) {
+    console.error("Signup Error:", err.message);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
 
 // user login
-app.post('api/login', async (req: Request, res: Response) => {
+app.post('/api/login', async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
 
@@ -74,6 +85,27 @@ app.post('api/login', async (req: Request, res: Response) => {
     res.status(200).json({ message: 'Login successful', user: data.user, token: data.session?.access_token });
   } catch (err) {
     res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// User Logout
+app.post('/api/logout', async (req: Request, res: Response) => {
+  try {
+    const token = req.headers.authorization?.split(' ')[1];
+
+    if (!token) {
+      res.status(401).json({ error: 'Unauthorized' });
+    }
+
+    const { error } = await supabase.auth.signOut();
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    res.status(200).json({ message: 'User logged out successfully' });
+  } catch (err: any) {
+    res.status(500).json({ error: 'Internal Server Error', message: err.message });
   }
 });
 
