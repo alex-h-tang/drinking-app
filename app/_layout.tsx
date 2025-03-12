@@ -1,12 +1,14 @@
 import { Tabs } from "expo-router";
 import { Ionicons } from "@expo/vector-icons";
-import { AuthProvider } from "./context/authContext";
+import { AuthProvider } from "../context/authContext";
+import Header from "../components/header";
 
 export default function RootLayout() {
   return (
     <AuthProvider>
       <Tabs
         screenOptions={({ route }) => ({
+          header: () => <Header />,
           tabBarIcon: ({ focused, color, size }) => {
             let iconName: keyof typeof Ionicons.glyphMap;
 
@@ -25,7 +27,7 @@ export default function RootLayout() {
           },
           tabBarActiveTintColor: "tomato",
           tabBarInactiveTintColor: "gray",
-          headerShown: false,
+          // headerShown: false,
         })}
       >
         <Tabs.Screen name="(pages)/homeScreen" options={{ title: "Home" }} />

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { View, TextInput, Button, Text, Alert, StyleSheet, TouchableOpacity } from 'react-native';
-import { AuthContext } from '../context/authContext';
+import { AuthContext } from '../../context/authContext';
 import { useRouter } from 'expo-router';
 
 export default function SignupScreen() {
