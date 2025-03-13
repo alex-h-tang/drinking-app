@@ -76,11 +76,17 @@ app.post('/api/login', async (req: Request, res: Response) => {
   try {
     const { email, password } = req.body;
 
+    console.log("Login request received for:", email);
+
     const { data, error } = await supabase.auth.signInWithPassword({ email, password });
 
-    if (error) {
-      throw new Error(error.message);
+
+    if (error || !data.user) {
+      console.error("Supabase Login Error:", error?.message || "No user returned");
+      res.status(401).json({ error: error?.message || "Invalid credentials" });
     }
+
+    // console.log("Login successful for:", data.user.email);
 
     res.status(200).json({ message: 'Login successful', user: data.user, token: data.session?.access_token });
   } catch (err) {
@@ -114,7 +120,10 @@ app.get('/api/profile', async (req: Request, res: Response) => {
   try {
     const token = req.headers.authorization?.split(' ')[1];
 
-    if (!token) res.status(401).json({ error: 'Unauthorized' });
+    if (!token) {
+      res.status(401).json({ error: 'Unauthorized' });
+      return;
+    }
 
     const { data, error } = await supabase.auth.getUser(token);
 
@@ -129,11 +138,13 @@ app.get('/api/profile', async (req: Request, res: Response) => {
       .eq('id', data.user.id)
       .single();
 
+    // console.log("Fetched profile from supabase:", profile);  
+
     if (profileError) {
       throw new Error(profileError.message);
     }
 
-    res.status(200).json({ profile });
+    res.status(200).json(profile);
   } catch (err) {
     res.status(500).json({ error: 'Internal Server Error' });
   }

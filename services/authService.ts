@@ -12,7 +12,7 @@ export const signUp = async (email: string, password: string, username: string, 
 };
 
 export const signIn = async (email: string, password: string) => {
-    const response = await fetch(`${process.env.API_URL}:4000/api/login`, {
+    const response = await fetch(`${API_URL}:4000/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email, password }),
@@ -23,7 +23,7 @@ export const signIn = async (email: string, password: string) => {
 export const logout = async () => {
     const token = await AsyncStorage.getItem('authToken');
 
-    await fetch(`${process.env.API_URL}:4000/api/logout`, {
+    await fetch(`${API_URL}:4000/api/logout`, {
         method: 'POST',
         headers: { 'Authorization': `Bearer ${token}` },
     });
@@ -34,7 +34,7 @@ export const logout = async () => {
 
 // **Fetch user profile**
 export const getUserProfile = async (token: string) => {
-    const response = await fetch(`http://localhost:4000/api/profile`, {
+    const response = await fetch(`${API_URL}:4000/api/profile`, {
         method: 'GET',
         headers: { Authorization: `Bearer ${token}` },
     });

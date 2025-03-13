@@ -23,7 +23,7 @@ export default function LoginScreen() {
         }
 
         await signInUser(email, password);
-        router.push("./tabs/index");  // Redirect to Home after login
+        router.push("./profileScreen");  // Redirect to Home after login
     };
 
     return (

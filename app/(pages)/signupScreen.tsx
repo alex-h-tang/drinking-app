@@ -39,8 +39,8 @@ export default function SignupScreen() {
             return;
         }
 
-        await signUpUser(email, password,   username, weightInt, gender);
-        router.push("./tabs/profile");
+        await signUpUser(email, password, username, weightInt, gender);
+        router.push("./profileScreen");
     };
 
     return (
